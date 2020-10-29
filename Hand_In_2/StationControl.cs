@@ -129,7 +129,6 @@ namespace Ladeskab
             //case ladeskabstate switch til available i RfidDetected(int id)
             _state = LadeskabState.Available;
 
-
             Console.WriteLine("station control modtaget skab lukket");
         }
 

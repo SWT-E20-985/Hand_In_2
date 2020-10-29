@@ -23,6 +23,7 @@ namespace Hand_In_2
         Door door = new Door();
         RFIDReader rfidReader = new RFIDReader();
         StationControl stationControl = new StationControl(door, rfidReader, charger);
+        ChargeControl chargeControl = new ChargeControl(charger);
 
             bool finish = false;
             do
