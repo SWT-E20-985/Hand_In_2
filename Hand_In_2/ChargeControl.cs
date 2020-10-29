@@ -11,6 +11,8 @@ namespace Hand_In_2
     public class ChargeControl
     {
 
+        //commit til master branch
+
         private enum ChargeState
         {
             Charging,
