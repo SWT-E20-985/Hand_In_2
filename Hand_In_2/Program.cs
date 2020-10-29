@@ -17,6 +17,7 @@ namespace Hand_In_2
         
         static void Main(string[] args)
         {
+            //foerste test
             // Assemble your system here from all the classes
         UsbChargerSimulator charger = new UsbChargerSimulator();   
         Door door = new Door();
