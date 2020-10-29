@@ -27,6 +27,7 @@ namespace NUnitTestProject_hand_in_2
         [SetUp]
         public void Setup()
         {
+
             _fakeIDoor = Substitute.For<IDoor>();
             _fakeIUsbCharger = Substitute.For<IUsbCharger>();
 
@@ -41,6 +42,7 @@ namespace NUnitTestProject_hand_in_2
         [Test]
         public void TestingFakeDoor()
         {
+            //The functions bellow should be tested for that they are going to be called only one time
             _fakeDoor.Received(1).OnDoorOpen();
             _fakeDoor.Received(1).OnDoorClose();
             _fakeDoor.Received(1).LockDoor();
@@ -54,11 +56,7 @@ namespace NUnitTestProject_hand_in_2
             _fakeRfidReader.Received(1).OnRfidRead(123);
         }
 
-        [Test]
-        public void TestingFakeIChargeControl()
-        {
-            _fakeIChargeControl.Received(1).IsConnected();
-        }
+
 
     }
 }
