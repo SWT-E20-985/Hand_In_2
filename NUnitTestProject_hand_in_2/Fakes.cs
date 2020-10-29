@@ -53,5 +53,12 @@ namespace NUnitTestProject_hand_in_2
         {
             _fakeRfidReader.Received(1).OnRfidRead(123);
         }
+
+        [Test]
+        public void TestingFakeIChargeControl()
+        {
+            _fakeIChargeControl.Received(1).IsConnected();
+        }
+
     }
 }
