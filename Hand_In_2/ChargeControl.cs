@@ -12,6 +12,7 @@ namespace Hand_In_2
     {
 
         //commit til master branch
+        //commit til master branch #2
 
         private enum ChargeState
         {
