@@ -11,6 +11,8 @@ namespace Hand_In_2
     public class ChargeControl
     {
 
+        //branch test
+
         private enum ChargeState
         {
             Charging,
