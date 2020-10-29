@@ -5,7 +5,7 @@ using UsbSimulator;
 
 namespace Hand_In_2
 {
-    class ChargeControl: IChargeControl
+    public class ChargeControl: IChargeControl
     {
 
         //IUsbCharger Charger;
