@@ -10,12 +10,9 @@ namespace NUnitTestProject_hand_in_2
     [TestFixture]
     public class Tests
     {
-        private IChargeControl _fakeIChargeControl;
+
         private ChargeControl _fakeChargeControl;
         private IUsbCharger _fakeIUsbCharger;
-
-        private IDisplay _fakeIDisplay;
-        private Display _fakeDisplay;
 
         private IDoor _fakeIDoor;
         private Door _fakeDoor;
