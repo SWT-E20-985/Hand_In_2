@@ -72,7 +72,7 @@ namespace UsbSimulator
 
         public void StartCharge()
         {
-            // Ignore if already charging
+            // If already charging ignore it
             if (!_charging)
             {
                 if (Connected && !_overload)
