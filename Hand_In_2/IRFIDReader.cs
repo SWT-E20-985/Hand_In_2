@@ -16,7 +16,5 @@ namespace Hand_In_2
 
         event EventHandler<DetectedEventArgs> DetectedEvent;
 
-
-
     }
 }
