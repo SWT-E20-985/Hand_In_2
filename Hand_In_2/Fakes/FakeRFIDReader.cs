@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hand_In_2
 {
-    public class RFIDReader : IRFIDReader
+    public class FakeRFIDReader : IRFIDReader
     {
 
         public event EventHandler<DetectedEventArgs> DetectedEvent;

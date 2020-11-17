@@ -12,7 +12,7 @@ namespace Ladeskab
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available, //dør lukket?
             Locked,
@@ -20,7 +20,7 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState _state;
         private IUsbCharger _charger;
         private IDoor _door;
         private int _oldId;
@@ -127,7 +127,7 @@ namespace Ladeskab
 
             CloseDoor = e.Closed;
             //case ladeskabstate switch til available i RfidDetected(int id)
-            _state = LadeskabState.Available;
+            _state = LadeskabState.Locked;
 
             Console.WriteLine("station control modtaget skab lukket");
         }

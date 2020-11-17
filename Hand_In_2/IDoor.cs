@@ -16,27 +16,14 @@ namespace Hand_In_2
     }
 
 
-
-
-
-
     public interface IDoor
     {
 
-
         event EventHandler<ClosedEventArgs> ClosedEvent;
-
         event EventHandler<OpenEventArgs> OpenEvent;
 
-
         void LockDoor();
-
-
         void UnlockDoor();
-
-
-
-
 
     }
 }

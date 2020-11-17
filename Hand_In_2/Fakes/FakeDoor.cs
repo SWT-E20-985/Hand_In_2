@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hand_In_2
 {
-    public class FakeDoor: IDoor
+    public class Door: IDoor
     {
 
         protected bool Lock = false;
