@@ -21,7 +21,7 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
+        private IChargeControl _charger;
         private IDoor _door;
         private int _oldId;
 
@@ -34,10 +34,9 @@ namespace Ladeskab
 
         // Her mangler constructor
 
-        public StationControl(IDoor door, IRFIDReader read,IUsbCharger charger)
+        public StationControl(IDoor door, IRFIDReader read,IChargeControl charger)
         {
-           _charger = charger;
-
+            _charger = charger;
             _door = door;
             door.ClosedEvent += DoorClosed;
             door.OpenEvent += DoorOpened;

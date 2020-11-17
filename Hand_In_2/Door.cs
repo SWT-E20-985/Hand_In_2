@@ -17,7 +17,6 @@ namespace Hand_In_2
 
         public void OnDoorClose()
         {
-
             if (Lock == true)
             {
                 Console.WriteLine("Skabet er i brug");

@@ -19,11 +19,15 @@ namespace Hand_In_2
         {
             //foerste test
             // Assemble your system here from all the classes
-        UsbChargerSimulator charger = new UsbChargerSimulator();   
+        Display display = new Display();
+        UsbChargerSimulator USBcharger = new UsbChargerSimulator();
+        Display Display = new Display();
         Door door = new Door();
         RFIDReader rfidReader = new RFIDReader();
+        ChargeControl charger = new ChargeControl(USBcharger,Display);
         StationControl stationControl = new StationControl(door, rfidReader, charger);
-        ChargeControl chargeControl = new ChargeControl(charger);
+
+        //ChargeControl chargeControl = new ChargeControl(charger);
 
             bool finish = false;
             do
