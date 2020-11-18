@@ -12,7 +12,7 @@ namespace Ladeskab
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available, //dør lukket?
             Locked,
@@ -20,7 +20,7 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState _state;
         private IChargeControl _charger;
         private IDoor _door;
         private int _oldId;
@@ -42,7 +42,10 @@ namespace Ladeskab
             door.OpenEvent += DoorOpened;
             read.DetectedEvent += HandleRfidDetected;
         }
+        public StationControl()
+        {
 
+        }
 
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -102,7 +105,7 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
 
 
-        private void HandleRfidDetected(object sender, DetectedEventArgs e) 
+        public void HandleRfidDetected(object sender, DetectedEventArgs e) 
         {
             CurrentRFid = e.RFID;
             RfidDetected(CurrentRFid);
@@ -110,7 +113,7 @@ namespace Ladeskab
             Console.WriteLine("station control modtaget RFID");
         }
 
-        private void DoorOpened(object sender, OpenEventArgs e)
+        public void DoorOpened(object sender, OpenEventArgs e)
         {
             OpenDoor = e.Opened;
             //case ladeskabstate switch til open i RfidDetected(int id)
@@ -121,12 +124,12 @@ namespace Ladeskab
 
 
 
-        private void DoorClosed(object sender, ClosedEventArgs e)
+        public void DoorClosed(object sender, ClosedEventArgs e)
         {
 
             CloseDoor = e.Closed;
             //case ladeskabstate switch til available i RfidDetected(int id)
-            _state = LadeskabState.Available;
+            _state = LadeskabState.Locked;
 
             Console.WriteLine("station control modtaget skab lukket");
         }

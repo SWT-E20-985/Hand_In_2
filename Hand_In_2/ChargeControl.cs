@@ -65,7 +65,10 @@ namespace Hand_In_2
             }
 
         }
+        public ChargeControl()
+        {
 
+        }
 
 
         private void CurrentDetected() 
@@ -104,7 +107,7 @@ namespace Hand_In_2
          
           _state = ChargeState.NotConnected;
 
-            _DisplayCC.CurrentCharge(e.Current);
+            //_DisplayCC.CurrentCharge(e.Current);
 
             if (e.Current == 0)
             {
