@@ -12,8 +12,8 @@ namespace Hand_In_2
 
     public interface IRFIDReader
     {
-     
 
+        void OnRfidRead(int n);
         event EventHandler<DetectedEventArgs> DetectedEvent;
 
     }

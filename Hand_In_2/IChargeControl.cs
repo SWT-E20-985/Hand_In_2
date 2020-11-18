@@ -13,6 +13,9 @@ namespace Hand_In_2
         void StopCharge();
 
         void IsConnected();
+        void CurrentDetected();
+        //void CurrentHandler();
+
 
         bool Connected { get; }
 

@@ -17,6 +17,7 @@ namespace NUnitTestProject_hand_in_2
         private IRFIDReader _fakeRfidReader;
         private IChargeControl _fakeChargerControl;
         private IDisplay _fakeDisplay;
+    
 
         private StationControl _fakeStationControl;
         private UsbChargerSimulator _fakeUSBChargerSimulator; //Den har ikke en interface, så derfor kalder vi selve UsbChargerSimulatoren
@@ -145,5 +146,16 @@ namespace NUnitTestProject_hand_in_2
 
 
         #endregion
+
+        //HandleRfidDetectedTest
+        #region
+        public void HandleRfidDetectedTest()
+        {
+
+
+        }
+
+        #endregion
+
     }
 }

@@ -14,7 +14,7 @@ namespace Hand_In_2
         //commit til master branch
         //commit til master branch #2
 
-        private enum ChargeState
+        public enum ChargeState
         {
             Charging,
             Charged,
@@ -37,15 +37,13 @@ namespace Hand_In_2
         //isConnected skal sende enten false eller true tilbage til stationcontrol om at den er connected ie. true == _charger.Connected
 
 
-        private ChargeState _state;
+        public ChargeState _state;
 
 
        IUsbCharger _UsbCharger;
 
         public ChargeControl(IUsbCharger UsbCharger, IDisplay DisplayCC) 
         {
-           
-
             UsbCharger.CurrentValueEvent += CurrentHandler;
 
             _UsbCharger = UsbCharger;
@@ -70,9 +68,10 @@ namespace Hand_In_2
 
         }
 
-
-        private void CurrentDetected() 
+        public void CurrentDetected() 
         {
+            
+            //if (n != null) _state = ChargeState; 
             switch (_state)
             {
                 case ChargeState.Charging:
@@ -102,7 +101,7 @@ namespace Hand_In_2
 
 
 
-        private void CurrentHandler(object sender, CurrentEventArgs e) 
+        public void CurrentHandler(object sender, CurrentEventArgs e) 
         {
          
           _state = ChargeState.NotConnected;
@@ -111,37 +110,28 @@ namespace Hand_In_2
 
             if (e.Current == 0)
             {
-              
                 _state = ChargeState.NotConnected;
 
                 if (chargestate1 == true) 
                 {
                     CurrentDetected();
-
-                  
                     chargestate1 = false;
                     chargestate2 = true;
                     chargestate3 = true;
                     chargestate4 = true;
-
                 }
-
             }
             else if (e.Current > 0 && e.Current <= 5)
             {
                 _state = ChargeState.Charged;
-
                 
-
                 if (chargestate2 == true)
                 {
                    CurrentDetected();
-
                     chargestate1 = true;
                     chargestate2 = false;
                     chargestate3 = true;
                     chargestate4 = true;
-
                 }
 
 
@@ -211,7 +201,6 @@ namespace Hand_In_2
            _UsbCharger.StopCharge();
             return;
         }
-
 
     }
 }

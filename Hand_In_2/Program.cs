@@ -24,7 +24,7 @@ namespace Hand_In_2
         Display Display = new Display();
         Door door = new Door();
         RFIDReader rfidReader = new RFIDReader();
-        ChargeControl charger = new ChargeControl(USBcharger,Display);
+        ChargeControl charger = new ChargeControl( USBcharger, Display);
         StationControl stationControl = new StationControl(door, rfidReader, charger);
 
         //ChargeControl chargeControl = new ChargeControl(charger);
@@ -45,6 +45,7 @@ namespace Hand_In_2
 
                     case 'O':
                         door.OnDoorOpen();
+
                         break;
 
                     case 'C':
