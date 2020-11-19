@@ -14,6 +14,7 @@ namespace Hand_In_2
 
         void IsConnected();
         void CurrentDetected();
+        
         //void CurrentHandler();
 
 

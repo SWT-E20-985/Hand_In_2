@@ -28,7 +28,6 @@ namespace Hand_In_2
         bool chargestate3=true;
         bool chargestate4=true;
 
-        // double Currentx = 0;
 
         private IDisplay _DisplayCC;
 
@@ -39,8 +38,7 @@ namespace Hand_In_2
 
         public ChargeState _state;
 
-
-       IUsbCharger _UsbCharger;
+        IUsbCharger _UsbCharger;
 
         public ChargeControl(IUsbCharger UsbCharger, IDisplay DisplayCC) 
         {
@@ -63,10 +61,11 @@ namespace Hand_In_2
             }
 
         }
+
         public ChargeControl()
         {
-
         }
+
 
         public void CurrentDetected() 
         {

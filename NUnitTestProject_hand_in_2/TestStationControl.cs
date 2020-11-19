@@ -104,6 +104,7 @@ namespace NUnitTestProject_hand_in_2
             // Act
             _fakeDoor.OnDoorClose();
 
+
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.DoorClose
             var actual = Convert.ToDouble(stationControl._state);

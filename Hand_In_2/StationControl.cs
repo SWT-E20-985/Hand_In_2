@@ -42,14 +42,14 @@ namespace Ladeskab
             door.OpenEvent += DoorOpened;
             read.DetectedEvent += HandleRfidDetected;
         }
+
         public StationControl()
         {
-
         }
 
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+            private void RfidDetected(int id)
         {
             switch (_state)
             {
@@ -129,7 +129,7 @@ namespace Ladeskab
 
             CloseDoor = e.Closed;
             //case ladeskabstate switch til available i RfidDetected(int id)
-            _state = LadeskabState.Locked;
+           _state = LadeskabState.Available;
 
             Console.WriteLine("station control modtaget skab lukket");
         }
