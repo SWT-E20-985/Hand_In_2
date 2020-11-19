@@ -17,11 +17,11 @@ namespace NUnitTestProject_hand_in_2
         private IRFIDReader _fakeRfidReader;
        // private IChargeControl _fakeChargerControl;
         private IDisplay _fakeDisplay;
-        private UsbChargerSimulator _fakeUSBChargerSimulator;
+        private UsbChargerSimulator _fakeUSBChargerSimulator; //Den har ikke en interface, så derfor kalder vi selve UsbChargerSimulatoren
 
-        private ChargeControl _uutChargeControl;
+        private ChargeControl _ChargeControl;
         private StationControl _uutStationControl;
-        //Den har ikke en interface, så derfor kalder vi selve UsbChargerSimulatoren
+        
 
 
         [SetUp]
@@ -32,8 +32,8 @@ namespace NUnitTestProject_hand_in_2
             _fakeRfidReader = Substitute.For<RFIDReader>();
             _fakeDoor = Substitute.For<Door>();
             _fakeDisplay = Substitute.For<Display>();
-            _uutChargeControl = new ChargeControl(_fakeUSBChargerSimulator, _fakeDisplay);
-            _uutStationControl = new StationControl(_fakeDoor, _fakeRfidReader, _uutChargeControl);
+            _ChargeControl = new ChargeControl(_fakeUSBChargerSimulator, _fakeDisplay);
+            _uutStationControl = new StationControl(_fakeDoor, _fakeRfidReader, _ChargeControl);
 
             
             
@@ -83,8 +83,10 @@ namespace NUnitTestProject_hand_in_2
            // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
-            _fakeDoor.OnDoorOpen();
             _fakeDoor.OnDoorClose();
+            _fakeDoor.LockDoor();
+            _uutStationControl._state = StationControl.LadeskabState.Locked;
+            _fakeDoor.OnDoorOpen();
 
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.Locked
@@ -97,20 +99,21 @@ namespace NUnitTestProject_hand_in_2
         //OnDoorCloseTest
         #region
         [Test]
-        public void TestingDoorClose()
+        public void TestingDoorClosed()
         {
             // Arrange - For at få det aktuelle state
            // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             // Act
-            _fakeDoor.OnDoorClose();
+            _uutStationControl._state = StationControl.LadeskabState.DoorOpen;
+            _fakeDoor.OnDoorClose();//OnDoorClose skulle gerne ændre til ladeskabState.available
 
 
             // Assert
-            var expected = Convert.ToDouble(1); //LadeskabsState.DoorClose
+            var expected = Convert.ToDouble(0); //LadeskabsState.DoorClose
             var actual = Convert.ToDouble(_uutStationControl._state);
 
-            Assert.AreEqual(expected, actual, "State of stationcontrol is: Close");
+            Assert.AreEqual(expected, actual, "State of StationControl is: ladeskabState.available");
         }
 
         [Test]
@@ -133,11 +136,13 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorCloseLocked()
         {
             //Arrange - For at få det aktuelle state
-            //StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
-            _fakeDoor.OnDoorOpen();
-            _fakeDoor.OnDoorClose();
+            //_fakeDoor.OnDoorOpen();
+           // _fakeDoor.OnDoorClose();
+            //_ChargeControl.IsConnected();
+            _ChargeControl.Connected.Equals(true);
+            _fakeRfidReader.OnRfidRead(123);
 
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.Locked
@@ -151,11 +156,19 @@ namespace NUnitTestProject_hand_in_2
 
         //HandleRfidDetectedTest
         #region
-        public void HandleRfidDetectedTest()
+        [Test]
+        public void TestingReadWrongRFID()
         {
+            _ChargeControl.Connected.Equals(true);
+            _fakeRfidReader.OnRfidRead(13);
+            _fakeRfidReader.OnRfidRead(23);
 
+            var expected = Convert.ToDouble(13); 
+            var actual = Convert.ToDouble(_uutStationControl._oldId);
 
+            Assert.AreEqual(expected, actual, "RFID remains 13");
         }
+
 
         #endregion
 

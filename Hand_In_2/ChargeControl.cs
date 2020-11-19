@@ -28,7 +28,7 @@ namespace Hand_In_2
         bool chargestate3=true;
         bool chargestate4=true;
 
-
+        public double currentx = 0;
         private IDisplay _DisplayCC;
 
         public bool Connected{ get;  private set; }
@@ -100,14 +100,15 @@ namespace Hand_In_2
 
 
 
-        public void CurrentHandler(object sender, CurrentEventArgs e) 
+        public void CurrentHandler(object sender, CurrentEventArgs e)
         {
-         
+
+            currentx = e.Current;
           _state = ChargeState.NotConnected;
 
             //_DisplayCC.CurrentCharge(e.Current);
 
-            if (e.Current == 0)
+            if (currentx == 0)
             {
                 _state = ChargeState.NotConnected;
 
@@ -120,7 +121,7 @@ namespace Hand_In_2
                     chargestate4 = true;
                 }
             }
-            else if (e.Current > 0 && e.Current <= 5)
+            else if (currentx > 0 && currentx <= 5)
             {
                 _state = ChargeState.Charged;
                 
@@ -135,7 +136,7 @@ namespace Hand_In_2
 
 
             }
-            else if(e.Current > 5 && e.Current <= 500) 
+            else if(currentx > 5 && currentx <= 500) 
             {
 
                
@@ -195,10 +196,10 @@ namespace Hand_In_2
         }
 
 
-        public void StopCharge() 
+        public void StopCharge()
         {
-           _UsbCharger.StopCharge();
-            return;
+            _UsbCharger.StopCharge();
+           return;
         }
 
     }

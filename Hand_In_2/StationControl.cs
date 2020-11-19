@@ -23,7 +23,7 @@ namespace Ladeskab
         public LadeskabState _state;
         private IChargeControl _charger;
         private IDoor _door;
-        private int _oldId;
+        public int _oldId;
 
         public bool OpenDoor{ get; set; }
         public bool CloseDoor { get; set; }
