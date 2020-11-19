@@ -15,12 +15,13 @@ namespace NUnitTestProject_hand_in_2
 
         private IDoor _fakeDoor;
         private IRFIDReader _fakeRfidReader;
-        private IChargeControl _fakeChargerControl;
+       // private IChargeControl _fakeChargerControl;
         private IDisplay _fakeDisplay;
-    
+        private UsbChargerSimulator _fakeUSBChargerSimulator;
 
-        private StationControl _fakeStationControl;
-        private UsbChargerSimulator _fakeUSBChargerSimulator; //Den har ikke en interface, så derfor kalder vi selve UsbChargerSimulatoren
+        private ChargeControl _uutChargeControl;
+        private StationControl _uutStationControl;
+        //Den har ikke en interface, så derfor kalder vi selve UsbChargerSimulatoren
 
 
         [SetUp]
@@ -31,10 +32,10 @@ namespace NUnitTestProject_hand_in_2
             _fakeRfidReader = Substitute.For<RFIDReader>();
             _fakeDoor = Substitute.For<Door>();
             _fakeDisplay = Substitute.For<Display>();
-            _fakeChargerControl = Substitute.For<ChargeControl>();
-            _fakeStationControl = Substitute.For<StationControl>();
+            _uutChargeControl = new ChargeControl(_fakeUSBChargerSimulator, _fakeDisplay);
+            _uutStationControl = new StationControl(_fakeDoor, _fakeRfidReader, _uutChargeControl);
 
-            //ChargeControl _fakeChargerControl = new ChargeControl(_fakeUSBChargerSimulator, _fakeDisplay);
+            
             
         }
 
@@ -46,7 +47,7 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorOpen()
         {
             // Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+           // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
 
             // Act
@@ -54,7 +55,7 @@ namespace NUnitTestProject_hand_in_2
 
             // Assert
             var expected = Convert.ToDouble(2); //LadeskabsState.DoorOpen
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is: Open");
         }
@@ -63,14 +64,14 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorOpenFail()
         {
             // Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+           // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
             //Intentional(mening) No code - Expecting to be open, but door is available
 
             // Assert
             var expected = Convert.ToDouble(0); //LadeskabsState.Available
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is: Available");
         }
@@ -79,7 +80,7 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorOpenLocked()
         {
             // Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+           // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
             _fakeDoor.OnDoorOpen();
@@ -87,7 +88,7 @@ namespace NUnitTestProject_hand_in_2
 
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.Locked
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is locked");
         }
@@ -99,7 +100,7 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorClose()
         {
             // Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+           // StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             // Act
             _fakeDoor.OnDoorClose();
@@ -107,7 +108,7 @@ namespace NUnitTestProject_hand_in_2
 
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.DoorClose
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is: Close");
         }
@@ -116,14 +117,14 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorCloseFail()
         {
             //Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+            //StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
             //Intentional(mening) No code - Expecting to be close, but door is available
 
             // Assert
             var expected = Convert.ToDouble(0); //LadeskabsState.Available
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is: Available");
         }
@@ -132,7 +133,7 @@ namespace NUnitTestProject_hand_in_2
         public void TestingDoorCloseLocked()
         {
             //Arrange - For at få det aktuelle state
-            StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
+            //StationControl stationControl = new StationControl(_fakeDoor, _fakeRfidReader, _fakeChargerControl);
 
             //Act
             _fakeDoor.OnDoorOpen();
@@ -140,7 +141,7 @@ namespace NUnitTestProject_hand_in_2
 
             // Assert
             var expected = Convert.ToDouble(1); //LadeskabsState.Locked
-            var actual = Convert.ToDouble(stationControl._state);
+            var actual = Convert.ToDouble(_uutStationControl._state);
 
             Assert.AreEqual(expected, actual, "State of stationcontrol is locked");
         }
